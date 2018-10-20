@@ -13,9 +13,9 @@ namespace AzurecomStatsFunctions
     public static class ProcessSitemap
     {
         [FunctionName("process-sitemap")]
-        [return: Table("sitemapint")]
+        [return: Table("sitemap")]
         public static SitemapData Run(
-            [TimerTrigger("0 */20 * * * *")]TimerInfo myTimer,
+            [TimerTrigger("0 0 */1 * * *")]TimerInfo myTimer,
             ILogger log)
         {
             var pageNum = 1;

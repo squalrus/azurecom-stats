@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -19,7 +18,7 @@ namespace AzurecomStatsFunctions
         [FunctionName("get-sitemap-stats")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
-            [Table("sitemapint")] CloudTable cloudTable,
+            [Table("sitemap")] CloudTable cloudTable,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
