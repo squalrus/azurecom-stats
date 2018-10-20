@@ -10,13 +10,13 @@ using Newtonsoft.Json;
 using Microsoft.WindowsAzure.Storage.Table;
 using System.Collections.Generic;
 using System.Linq;
-using Sitemap.Shared;
+using AzurecomStatsFunctions.Shared;
 
-namespace Sitemap
+namespace AzurecomStatsFunctions
 {
-    public static class GetSitemap
+    public static class GetSitemapStats
     {
-        [FunctionName("get-sitemap")]
+        [FunctionName("get-sitemap-stats")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
             [Table("sitemapint")] CloudTable cloudTable,

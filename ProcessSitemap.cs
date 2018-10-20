@@ -6,13 +6,13 @@ using System.Net;
 using System.Text.RegularExpressions;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
-using Sitemap.Shared;
+using AzurecomStatsFunctions.Shared;
 
-namespace Sitemap
+namespace AzurecomStatsFunctions
 {
-    public static class SetSitemap
+    public static class ProcessSitemap
     {
-        [FunctionName("set-sitemap")]
+        [FunctionName("process-sitemap")]
         [return: Table("sitemapint")]
         public static SitemapData Run(
             [TimerTrigger("0 */20 * * * *")]TimerInfo myTimer,

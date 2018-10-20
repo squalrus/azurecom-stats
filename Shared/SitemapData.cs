@@ -1,6 +1,6 @@
 using Microsoft.WindowsAzure.Storage.Table;
 
-namespace Sitemap.Shared
+namespace AzurecomStatsFunctions.Shared
 {
     public class SitemapData : TableEntity
     {
