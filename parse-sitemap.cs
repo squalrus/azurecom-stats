@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Sitemap
 {
-    public static class parse_sitemap
+    public static class ParseSitemap
     {
         [FunctionName("parse_sitemap")]
         public static void Run([TimerTrigger("0 */2 * * * *")]TimerInfo myTimer, ILogger log)
