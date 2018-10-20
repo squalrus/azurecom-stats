@@ -5,27 +5,13 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
+using Sitemap.Shared;
 
 namespace Sitemap
 {
     public static class SetSitemap
     {
-        public class SitemapData
-        {
-            public string PartitionKey { get; set; }
-            public string RowKey { get; set; }
-            public int UrlCount { get; set; }
-            public int UniqueUrlCount { get; set; }
-            public int BlogUrlCount { get; set; }
-            public int ResourcesUrlCount { get; set; }
-            public int SamplesUrlCount { get; set; }
-            public int TemplatesUrlCount { get; set; }
-            public int UpdatesUrlCount { get; set; }
-            public int VideoUrlCount { get; set; }
-        }
-
         [FunctionName("set-sitemap")]
         [return: Table("sitemapint")]
         public static SitemapData Run(
