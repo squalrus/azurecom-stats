@@ -12,7 +12,7 @@ namespace Colorator
 {
     public static class SetColor
     {
-        [FunctionName("SetColor")]
+        [FunctionName("set-color")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)

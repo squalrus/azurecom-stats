@@ -12,7 +12,7 @@ namespace Sitemap
 {
     public static class GetSitemap
     {
-        [FunctionName("GetSitemap")]
+        [FunctionName("get-sitemap")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
