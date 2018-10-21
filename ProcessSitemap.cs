@@ -65,7 +65,7 @@ namespace AzurecomStatsFunctions
 
             return new SitemapData
             {
-                PartitionKey = "Map",
+                PartitionKey = "Sitemap",
                 RowKey = Guid.NewGuid().ToString(),
                 UrlCount = urls.Count(),
                 UniqueUrlCount = distinctUrls.Count(),
