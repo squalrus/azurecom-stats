@@ -15,7 +15,7 @@ namespace AzurecomStatsFunctions
 {
     public static class GetSitemapStats
     {
-        [FunctionName("get-sitemap-stats")]
+        [FunctionName("sitemap")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
             [Table("sitemap")] CloudTable cloudTable,
@@ -24,7 +24,7 @@ namespace AzurecomStatsFunctions
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             TableQuery<SitemapData> rangeQuery = new TableQuery<SitemapData>().Where(
-                TableQuery.GenerateFilterConditionForDate("Timestamp", QueryComparisons.GreaterThanOrEqual, DateTimeOffset.UtcNow.AddHours(-2))
+                TableQuery.GenerateFilterConditionForDate("Timestamp", QueryComparisons.GreaterThanOrEqual, DateTimeOffset.UtcNow.AddDays(-2))
             );
 
             List<SitemapData> sitemapData = new List<SitemapData>();
@@ -34,7 +34,7 @@ namespace AzurecomStatsFunctions
                 log.LogInformation($"{entity.PartitionKey}\t{entity.RowKey}\t{entity.Timestamp}");
             }
 
-            return (ActionResult)new OkObjectResult(JsonConvert.SerializeObject(sitemapData.OrderByDescending(x => x.Timestamp)));
+            return new JsonResult(sitemapData.OrderByDescending(x => x.Timestamp));
         }
     }
 }
