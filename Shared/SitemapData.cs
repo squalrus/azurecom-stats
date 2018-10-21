@@ -4,6 +4,7 @@ namespace AzurecomStatsFunctions.Shared
 {
     public class SitemapData : TableEntity
     {
+        public string FriendlyDate => Timestamp.DateTime.ToString("MMMM dd, yyyy hh:mm:ss");
         public int UrlCount { get; set; }
         public int UniqueUrlCount { get; set; }
         public int BlogUrlCount { get; set; }
