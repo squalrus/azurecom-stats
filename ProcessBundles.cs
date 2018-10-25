@@ -12,7 +12,7 @@ namespace AzurecomStatsFunctions
         [FunctionName("process-bundles")]
         [return: Table("bundles")]
         public static BundleData Run(
-            [TimerTrigger("0 0 */4 * * *")]TimerInfo myTimer,
+            [TimerTrigger("0 0 0 */1 * *")]TimerInfo myTimer,
             ILogger log)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
