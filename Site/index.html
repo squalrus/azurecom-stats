@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>azurecom stats</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 55px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 35px;
+        }
+
+        main {
+            display: block;
+            margin: 0 auto;
+            width: 900px;
+        }
+
+        .stats {
+            background-color: #f4f4f4;
+            border: 1px solid #dddddd;
+            padding: 25px 0 35px;
+            margin: 0 0 10px;
+            text-align: center;
+            font-size: 11px;
+            position: relative;
+        }
+
+        .stats ul {
+            display: flex;
+            list-style: none;
+            justify-content: space-around;
+            margin: 0;
+            padding: 0;
+        }
+
+        .stats .number {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .stats .number+span {
+            display: block;
+        }
+
+        .stats .date {
+            position: absolute;
+            bottom: 9px;
+            left: 50%;
+            color: #aaaaaa;
+            transform: translate(-50%, 0);
+        }
+
+        details {
+            font-size: 12px;
+        }
+
+        th,
+        td {
+            padding: 6px;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        .loader {
+            display: inline-block;
+            height: 30px;
+            width: 30px;
+        }
+
+        .loader:after {
+            animation: loader 1.2s linear infinite;
+            border-radius: 50%;
+            border: 3px solid #336699;
+            border-color: #336699 transparent #336699 transparent;
+            content: '';
+            display: block;
+            height: 20px;
+            margin: 1px;
+            width: 20px;
+        }
+
+        @keyframes loader {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="row column">
+            <h1>azurecom stats</h1>
+            <h2>sitemap</h2>
+
+            <div class="stats">
+                <ul>
+                    <li>
+                        <span id="sm-unique-urls" class="number"><span class="loader"></span></span>
+                        <span>unique URLs</span>
+                    </li>
+                    <li>
+                        <span id="sm-blog-urls" class="number"><span class="loader"></span></span>
+                        <span>blog URLs</span>
+                    </li>
+                    <li>
+                        <span id="sm-resource-urls" class="number"><span class="loader"></span></span>
+                        <span>resource URLs</span>
+                    </li>
+                    <li>
+                        <span id="sm-sample-urls" class="number"><span class="loader"></span></span>
+                        <span>sample URLs</span>
+                    </li>
+                    <li>
+                        <span id="sm-template-urls" class="number"><span class="loader"></span></span>
+                        <span>template URLs</span>
+                    </li>
+                    <li>
+                        <span id="sm-update-urls" class="number"><span class="loader"></span></span>
+                        <span>update URLs</span>
+                    </li>
+                    <li>
+                        <span id="sm-video-urls" class="number"><span class="loader"></span></span>
+                        <span>video URLs</span>
+                    </li>
+                </ul>
+                <span id="sm-date" class="date"></span>
+            </div>
+
+            <details>
+                <summary>Sitemap history</summary>
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>URL Count</th>
+                        <th>URL Count (Unique)</th>
+                        <th>Blog URLs</th>
+                        <th>Resources URLs</th>
+                        <th>Samples URLs</th>
+                        <th>Templates URLs</th>
+                        <th>Updates URLs</th>
+                        <th>Videos URLs</th>
+                    </tr>
+                    <tr id="sitemap-data">
+                        <td rowspan="3">Loading...</td>
+                    </tr>
+                </table>
+            </details>
+
+            <h2>bundles</h2>
+
+            <div class="stats">
+                <ul>
+                    <li>
+                        <span id="bn-home-html" class="number"><span class="loader"></span></span>
+                        <span>home HTML</span>
+                    </li>
+                    <li>
+                        <span id="bn-home-css" class="number"><span class="loader"></span></span>
+                        <span>home CSS</span>
+                    </li>
+                    <li>
+                        <span id="bn-home-js" class="number"><span class="loader"></span></span>
+                        <span>home JS</span>
+                    </li>
+                    <li>
+                        <span id="bn-core-css" class="number"><span class="loader"></span></span>
+                        <span>core CSS</span>
+                    </li>
+                    <li>
+                        <span id="bn-core-js" class="number"><span class="loader"></span></span>
+                        <span>core JS</span>
+                    </li>
+                </ul>
+                <span id="bn-date" class="date"></span>
+            </div>
+
+            <details>
+                <summary>Bundle history</summary>
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Home HTML</th>
+                        <th>Home CSS</th>
+                        <th>Home JS</th>
+                        <th>Core CSS</th>
+                        <th>Core JS</th>
+                    </tr>
+                    <tr id="bundle-data">
+                        <td rowspan="3">Loading...</td>
+                    </tr>
+                </table>
+            </details>
+        </div>
+    </main>
+
+    <script>
+        const sitemapData = document.getElementById('sitemap-data');
+        const smUniqueUrls = document.getElementById('sm-unique-urls');
+        const smBlogUrls = document.getElementById('sm-blog-urls');
+        const smResourceUrls = document.getElementById('sm-resource-urls');
+        const smSampleUrls = document.getElementById('sm-sample-urls');
+        const smTemplateUrls = document.getElementById('sm-template-urls');
+        const smUpdateUrls = document.getElementById('sm-update-urls');
+        const smVideoUrls = document.getElementById('sm-video-urls');
+        const smDate = document.getElementById('sm-date');
+        let smData;
+
+        var smRrequest = new XMLHttpRequest();
+
+        smRrequest.onreadystatechange = function () {
+            if (smRrequest.readyState === 4) {
+                if (smRrequest.status === 200) {
+                    smData = JSON.parse(smRrequest.responseText);
+
+                    sitemapData.insertAdjacentHTML('beforebegin', `${smData.map(element => `
+                        <tr>
+                            <th>${ element.friendlyDate}</th>
+                            <td>${ element.urlCount}</td>
+                            <td>${ element.uniqueUrlCount}</td>
+                            <td>${ element.blogUrlCount}</td>
+                            <td>${ element.resourcesUrlCount}</td>
+                            <td>${ element.samplesUrlCount}</td>
+                            <td>${ element.templatesUrlCount}</td>
+                            <td>${ element.updatesUrlCount}</td>
+                            <td>${ element.videoUrlCount}</td>
+                        </tr>
+                    `).join('')}`);
+                    sitemapData.parentNode.removeChild(sitemapData);
+
+                    smUniqueUrls.innerText = smData[0].uniqueUrlCount;
+                    smBlogUrls.innerText = smData[0].blogUrlCount;
+                    smResourceUrls.innerText = smData[0].resourcesUrlCount;
+                    smSampleUrls.innerText = smData[0].samplesUrlCount;
+                    smTemplateUrls.innerText = smData[0].templatesUrlCount;
+                    smUpdateUrls.innerText = smData[0].updatesUrlCount;
+                    smVideoUrls.innerText = smData[0].videoUrlCount;
+                    smDate.innerText = `updated: ${smData[0].friendlyDate}`;
+
+                } else {
+                    sitemapData.innerHTML = 'An error occurred during your request: ' + smRrequest.status + ' ' + smRrequest.statusText;
+                }
+            }
+        }
+
+        smRrequest.open('get', `https://azurecom-stats.azurewebsites.net/api/sitemap?v=${+new Date()}`);
+        smRrequest.send();
+    </script>
+
+    <script>
+        const bundleData = document.getElementById('bundle-data');
+        const bnHomeHtml = document.getElementById('bn-home-html');
+        const bnHomeCss = document.getElementById('bn-home-css');
+        const bnHomeJs = document.getElementById('bn-home-js');
+        const bnCoreCss = document.getElementById('bn-core-css');
+        const bnCoreJs = document.getElementById('bn-core-js');
+        const bnDate = document.getElementById('bn-date');
+        let bnData;
+
+        var bnRequest = new XMLHttpRequest();
+
+        bnRequest.onreadystatechange = function () {
+            if (bnRequest.readyState === 4) {
+                if (bnRequest.status === 200) {
+                    bnData = JSON.parse(bnRequest.responseText);
+
+                    bundleData.insertAdjacentHTML('beforebegin', `${bnData.map(element => `
+                        <tr>
+                            <th>${ element.friendlyDate}</th>
+                            <td>${ element.homepageHtmlPayloadSize}</td>
+                            <td>${ element.homepageCssBundleSize}</td>
+                            <td>${ element.homepageJsBundleSize}</td>
+                            <td>${ element.coreCssBundleSize}</td>
+                            <td>${ element.coreJsBundleSize}</td>
+                        </tr>
+                    `).join('')}`);
+                    bundleData.parentNode.removeChild(bundleData);
+
+                    bnHomeHtml.innerText = `${(bnData[0].homepageHtmlPayloadSize / 1024).toFixed(1)}kb`;
+                    bnHomeCss.innerText = `${(bnData[0].homepageCssBundleSize / 1024).toFixed(1)}kb`;
+                    bnHomeJs.innerText = `${(bnData[0].homepageJsBundleSize / 1024).toFixed(1)}kb`;
+                    bnCoreCss.innerText = `${(bnData[0].coreCssBundleSize / 1024).toFixed(1)}kb`;
+                    bnCoreJs.innerText = `${(bnData[0].coreJsBundleSize / 1024).toFixed(1)}kb`;
+                    bnDate.innerText = `updated: ${bnData[0].friendlyDate}`;
+
+                } else {
+                    bundleData.innerHTML = 'An error occurred during your request: ' + bnRequest.status + ' ' + bnRequest.statusText;
+                }
+            }
+        }
+
+        bnRequest.open('get', `https://azurecom-stats.azurewebsites.net/api/bundles?v=${+new Date()}`);
+        bnRequest.send();
+    </script>
+</body>
+
+</html>
