@@ -145,6 +145,8 @@
                 <span id="sm-date" class="date"></span>
             </div>
 
+            <div id="sm-chart"></div>
+
             <details>
                 <summary>Sitemap history</summary>
                 <table>
@@ -193,6 +195,12 @@
                 <span id="bn-date" class="date"></span>
             </div>
 
+            <div id="bn-chart-homehtml"></div>
+            <div id="bn-chart-homecss"></div>
+            <div id="bn-chart-homejs"></div>
+            <div id="bn-chart-corecss"></div>
+            <div id="bn-chart-corejs"></div>
+
             <details>
                 <summary>Bundle history</summary>
                 <table>
@@ -211,6 +219,8 @@
             </details>
         </div>
     </main>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <script>
         const sitemapData = document.getElementById('sitemap-data');
@@ -255,6 +265,7 @@
                     smVideoUrls.innerText = smData[0].videoUrlCount;
                     smDate.innerText = `updated: ${smData[0].friendlyDate}`;
 
+                    google.charts.setOnLoadCallback(drawSitemap);
                 } else {
                     sitemapData.innerHTML = 'An error occurred during your request: ' + smRrequest.status + ' ' + smRrequest.statusText;
                 }
@@ -301,6 +312,11 @@
                     bnCoreJs.innerText = `${(bnData[0].coreJsBundleSize / 1024).toFixed(1)}kb`;
                     bnDate.innerText = `updated: ${bnData[0].friendlyDate}`;
 
+                    google.charts.setOnLoadCallback(drawHomeHtml);
+                    google.charts.setOnLoadCallback(drawHomeCss);
+                    google.charts.setOnLoadCallback(drawHomeJs);
+                    google.charts.setOnLoadCallback(drawCoreCss);
+                    google.charts.setOnLoadCallback(drawCoreJs);
                 } else {
                     bundleData.innerHTML = 'An error occurred during your request: ' + bnRequest.status + ' ' + bnRequest.statusText;
                 }
@@ -309,6 +325,167 @@
 
         bnRequest.open('get', `https://azurecom-stats.azurewebsites.net/api/bundles?v=${+new Date()}`);
         bnRequest.send();
+    </script>
+
+    <script>
+        google.charts.load('current', { packages: ['corechart', 'line'] });
+
+            function drawSitemap() {
+
+                var data = new google.visualization.DataTable();
+                data.addColumn('datetime', 'Date');
+                data.addColumn('number', 'Blog URLs');
+                data.addColumn('number', 'Resource URLs');
+                data.addColumn('number', 'Sample URLs');
+                data.addColumn('number', 'Template URLs');
+                data.addColumn('number', 'Update URLs');
+                data.addColumn('number', 'Video URLs');
+
+                data.addRows(smData.map(element => [new Date(element.timestamp), element.blogUrlCount, element.resourcesUrlCount, element.samplesUrlCount, element.templatesUrlCount, element.updatesUrlCount, element.videoUrlCount]));
+
+                var options = {
+                    hAxis: {
+                        title: 'Date'
+                    },
+                    vAxis: {
+                        title: 'URLs'
+                    }
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('sm-chart'));
+
+                chart.draw(data, options);
+            }
+    </script>
+
+    <script>
+        google.charts.load('current', { packages: ['corechart', 'line'] });
+
+        function drawHomeHtml() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('datetime', 'Date');
+            data.addColumn('number', 'Home HTML');
+
+            data.addRows(bnData.map(element => [new Date(element.timestamp), element.homepageHtmlPayloadSize / 1024]));
+
+            var options = {
+                hAxis: {
+                    title: 'Date'
+                },
+                vAxis: {
+                    title: 'Size (kb)'
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('bn-chart-homehtml'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
+    <script>
+        google.charts.load('current', { packages: ['corechart', 'line'] });
+
+        function drawHomeCss() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('datetime', 'Date');
+            data.addColumn('number', 'Home CSS');
+
+            data.addRows(bnData.map(element => [new Date(element.timestamp), element.homepageCssBundleSize / 1024]));
+
+            var options = {
+                hAxis: {
+                    title: 'Date'
+                },
+                vAxis: {
+                    title: 'Size (kb)'
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('bn-chart-homecss'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
+    <script>
+        google.charts.load('current', { packages: ['corechart', 'line'] });
+
+        function drawHomeJs() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('datetime', 'Date');
+            data.addColumn('number', 'Home JS');
+
+            data.addRows(bnData.map(element => [new Date(element.timestamp), element.homepageJsBundleSize / 1024]));
+
+            var options = {
+                hAxis: {
+                    title: 'Date'
+                },
+                vAxis: {
+                    title: 'Size (kb)'
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('bn-chart-homejs'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
+    <script>
+        google.charts.load('current', { packages: ['corechart', 'line'] });
+
+        function drawCoreCss() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('datetime', 'Date');
+            data.addColumn('number', 'Core CSS');
+
+            data.addRows(bnData.map(element => [new Date(element.timestamp), element.coreCssBundleSize / 1024]));
+
+            var options = {
+                hAxis: {
+                    title: 'Date'
+                },
+                vAxis: {
+                    title: 'Size (kb)'
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('bn-chart-corecss'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
+    <script>
+        google.charts.load('current', { packages: ['corechart', 'line'] });
+
+        function drawCoreJs() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('datetime', 'Date');
+            data.addColumn('number', 'Core JS');
+
+            data.addRows(bnData.map(element => [new Date(element.timestamp), element.coreJsBundleSize / 1024]));
+
+            var options = {
+                hAxis: {
+                    title: 'Date'
+                },
+                vAxis: {
+                    title: 'Size (kb)'
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('bn-chart-corejs'));
+
+            chart.draw(data, options);
+        }
     </script>
 </body>
 

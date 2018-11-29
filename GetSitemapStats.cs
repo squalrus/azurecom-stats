@@ -24,7 +24,7 @@ namespace AzurecomStatsFunctions
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             TableQuery<SitemapData> rangeQuery = new TableQuery<SitemapData>().Where(
-                TableQuery.GenerateFilterConditionForDate("Timestamp", QueryComparisons.GreaterThanOrEqual, DateTimeOffset.UtcNow.AddDays(-2))
+                TableQuery.GenerateFilterConditionForDate("Timestamp", QueryComparisons.GreaterThanOrEqual, DateTimeOffset.UtcNow.AddDays(-15))
             );
 
             List<SitemapData> sitemapData = new List<SitemapData>();
