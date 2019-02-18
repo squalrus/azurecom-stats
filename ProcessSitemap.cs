@@ -53,6 +53,7 @@ namespace AzurecomStatsFunctions
                 }
                 catch (WebException e)
                 {
+                    Console.WriteLine(e);
                 }
 
                 pageNum++;
