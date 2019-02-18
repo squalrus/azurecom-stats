@@ -70,7 +70,7 @@ namespace AzurecomStatsFunctions
                 UrlCount = urls.Count(),
                 UniqueUrlCount = distinctUrls.Count(),
                 BlogUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/blog\/(.*?)\/")).Count(),
-                ResourcesUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/resources\/(.*?)\/([a-z]{2}-[a-z]{2})\/")).Count(),
+                ResourcesUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/resources\/(.*?)([a-z]{2}-[a-z]{2})\/")).Count(),
                 SamplesUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/resources\/samples\/(.*?)\/")).Count(),
                 TemplatesUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/resources\/templates\/(.*?)\/")).Count(),
                 UpdatesUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/updates\/(.*?)\/")).Count(),
