@@ -24,7 +24,7 @@ namespace AzurecomStatsFunctions
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             TableQuery<BundleData> rangeQuery = new TableQuery<BundleData>().Where(
-                TableQuery.GenerateFilterConditionForDate("Timestamp", QueryComparisons.GreaterThanOrEqual, DateTimeOffset.UtcNow.AddDays(-30))
+                TableQuery.GenerateFilterConditionForDate("Timestamp", QueryComparisons.GreaterThanOrEqual, DateTimeOffset.UtcNow.AddMonths(-3))
             );
 
             List<BundleData> bundleData = new List<BundleData>();
