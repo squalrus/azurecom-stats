@@ -3,25 +3,27 @@
 # Add steps that run tests, create a NuGet package, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
-trigger:
+trigger: none
+
+pr:
 - master
 
 pool:
   vmImage: 'vs2017-win2016'
 
 variables:
-  buildConfiguration: 'Release'
+  buildConfiguration: 'Debug'
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
-  displayName: 'dotnet build $(buildConfiguration)'
+  displayName: 'dotnet publish $(buildConfiguration)'
 
 - task: AzureFileCopy@3
   inputs:
-    sourcePath: '$(Build.SourcesDirectory)/Site/*'
+    sourcePath: '$(Build.SourcesDirectory)/Site'
     azureSubscription: conn
     destination: azureBlob
     storage: azurecomstats
-    containerName: "$web"
+    containerName: "dev"
 
 - task: PublishBuildArtifacts@1
