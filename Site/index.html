@@ -109,8 +109,8 @@
     <main>
         <div class="row column">
             <h1>azure.com stats</h1>
-            <h2>sitemap</h2>
 
+            <h2>sitemap</h2>
             <div class="stats">
                 <ul>
                     <li>
@@ -122,12 +122,34 @@
                         <span>blog URLs</span>
                     </li>
                     <li>
+                        <span id="sm-event-urls" class="number"><span class="loader"></span></span>
+                        <span>event URLs</span>
+                    </li>
+                    <li>
+                        <span id="sm-knowledge-center-urls" class="number"><span class="loader"></span></span>
+                        <span>knowledge center URLs</span>
+                    </li>
+                    <li>
+                        <span id="sm-podcast-urls" class="number"><span class="loader"></span></span>
+                        <span>podcast URLs</span>
+                    </li>
+                    <li>
+                        <span id="sm-pricing-details-urls" class="number"><span class="loader"></span></span>
+                        <span>pricing details URLs</span>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
                         <span id="sm-resource-urls" class="number"><span class="loader"></span></span>
                         <span>resource URLs</span>
                     </li>
                     <li>
-                        <span id="sm-sample-urls" class="number"><span class="loader"></span></span>
-                        <span>sample URLs</span>
+                        <span id="sm-service-urls" class="number"><span class="loader"></span></span>
+                        <span>service URLs</span>
+                    </li>
+                    <li>
+                        <span id="sm-solution-architecture-urls" class="number"><span class="loader"></span></span>
+                        <span>solution architecture URLs</span>
                     </li>
                     <li>
                         <span id="sm-template-urls" class="number"><span class="loader"></span></span>
@@ -145,27 +167,18 @@
                 <span id="sm-date" class="date"></span>
             </div>
 
-            <div id="sm-chart"></div>
-
-            <details>
-                <summary>Sitemap history</summary>
-                <table>
-                    <tr>
-                        <th>Date</th>
-                        <th>URL Count</th>
-                        <th>URL Count (Unique)</th>
-                        <th>Blog URLs</th>
-                        <th>Resources URLs</th>
-                        <th>Samples URLs</th>
-                        <th>Templates URLs</th>
-                        <th>Updates URLs</th>
-                        <th>Videos URLs</th>
-                    </tr>
-                    <tr id="sitemap-data">
-                        <td rowspan="3">Loading...</td>
-                    </tr>
-                </table>
-            </details>
+            <div id="sm-unique-urls-chart"></div>
+            <div id="sm-blog-urls-chart"></div>
+            <div id="sm-event-urls-chart"></div>
+            <div id="sm-knowledge-center-urls-chart"></div>
+            <div id="sm-podcast-urls-chart"></div>
+            <div id="sm-pricing-details-urls-chart"></div>
+            <div id="sm-resource-urls-chart"></div>
+            <div id="sm-service-urls-chart"></div>
+            <div id="sm-solution-architecture-urls-chart"></div>
+            <div id="sm-template-urls-chart"></div>
+            <div id="sm-update-urls-chart"></div>
+            <div id="sm-video-urls-chart"></div>
 
             <h2>bundles</h2>
 
@@ -195,153 +208,26 @@
                 <span id="bn-date" class="date"></span>
             </div>
 
-            <div id="bn-chart-homehtml"></div>
-            <div id="bn-chart-homecss"></div>
-            <div id="bn-chart-homejs"></div>
-            <div id="bn-chart-corecss"></div>
-            <div id="bn-chart-corejs"></div>
-
-            <details>
-                <summary>Bundle history</summary>
-                <table>
-                    <tr>
-                        <th>Date</th>
-                        <th>Home HTML</th>
-                        <th>Home CSS</th>
-                        <th>Home JS</th>
-                        <th>Core CSS</th>
-                        <th>Core JS</th>
-                    </tr>
-                    <tr id="bundle-data">
-                        <td rowspan="3">Loading...</td>
-                    </tr>
-                </table>
-            </details>
+            <div id="bn-home-html-chart"></div>
+            <div id="bn-home-css-chart"></div>
+            <div id="bn-home-js-chart"></div>
+            <div id="bn-core-css-chart"></div>
+            <div id="bn-core-js-chart"></div>
         </div>
     </main>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <script>
-        const sitemapData = document.getElementById('sitemap-data');
-        const smUniqueUrls = document.getElementById('sm-unique-urls');
-        const smBlogUrls = document.getElementById('sm-blog-urls');
-        const smResourceUrls = document.getElementById('sm-resource-urls');
-        const smSampleUrls = document.getElementById('sm-sample-urls');
-        const smTemplateUrls = document.getElementById('sm-template-urls');
-        const smUpdateUrls = document.getElementById('sm-update-urls');
-        const smVideoUrls = document.getElementById('sm-video-urls');
-        const smDate = document.getElementById('sm-date');
-        let smData;
+        function addUrlsChart(id, data, column, rows) {
+            document.getElementById(id).innerText = data;
 
-        var smRrequest = new XMLHttpRequest();
-
-        smRrequest.onreadystatechange = function () {
-            if (smRrequest.readyState === 4) {
-                if (smRrequest.status === 200) {
-                    smData = JSON.parse(smRrequest.responseText);
-
-                    sitemapData.insertAdjacentHTML('beforebegin', `${smData.map(element => `
-                        <tr>
-                            <th>${ element.friendlyDate}</th>
-                            <td>${ element.urlCount}</td>
-                            <td>${ element.uniqueUrlCount}</td>
-                            <td>${ element.blogUrlCount}</td>
-                            <td>${ element.resourcesUrlCount}</td>
-                            <td>${ element.samplesUrlCount}</td>
-                            <td>${ element.templatesUrlCount}</td>
-                            <td>${ element.updatesUrlCount}</td>
-                            <td>${ element.videoUrlCount}</td>
-                        </tr>
-                    `).join('')}`);
-                    sitemapData.parentNode.removeChild(sitemapData);
-
-                    smUniqueUrls.innerText = smData[0].uniqueUrlCount;
-                    smBlogUrls.innerText = smData[0].blogUrlCount;
-                    smResourceUrls.innerText = smData[0].resourcesUrlCount;
-                    smSampleUrls.innerText = smData[0].samplesUrlCount;
-                    smTemplateUrls.innerText = smData[0].templatesUrlCount;
-                    smUpdateUrls.innerText = smData[0].updatesUrlCount;
-                    smVideoUrls.innerText = smData[0].videoUrlCount;
-                    smDate.innerText = `updated: ${smData[0].friendlyDate}`;
-
-                    google.charts.setOnLoadCallback(drawSitemap);
-                } else {
-                    sitemapData.innerHTML = 'An error occurred during your request: ' + smRrequest.status + ' ' + smRrequest.statusText;
-                }
-            }
-        }
-
-        smRrequest.open('get', `https://azurecom-stats.azurewebsites.net/api/sitemap?v=${+new Date()}`);
-        smRrequest.send();
-    </script>
-
-    <script>
-        const bundleData = document.getElementById('bundle-data');
-        const bnHomeHtml = document.getElementById('bn-home-html');
-        const bnHomeCss = document.getElementById('bn-home-css');
-        const bnHomeJs = document.getElementById('bn-home-js');
-        const bnCoreCss = document.getElementById('bn-core-css');
-        const bnCoreJs = document.getElementById('bn-core-js');
-        const bnDate = document.getElementById('bn-date');
-        let bnData;
-
-        var bnRequest = new XMLHttpRequest();
-
-        bnRequest.onreadystatechange = function () {
-            if (bnRequest.readyState === 4) {
-                if (bnRequest.status === 200) {
-                    bnData = JSON.parse(bnRequest.responseText);
-
-                    bundleData.insertAdjacentHTML('beforebegin', `${bnData.map(element => `
-                        <tr>
-                            <th>${ element.friendlyDate}</th>
-                            <td>${ element.homepageHtmlPayloadSize}</td>
-                            <td>${ element.homepageCssBundleSize}</td>
-                            <td>${ element.homepageJsBundleSize}</td>
-                            <td>${ element.coreCssBundleSize}</td>
-                            <td>${ element.coreJsBundleSize}</td>
-                        </tr>
-                    `).join('')}`);
-                    bundleData.parentNode.removeChild(bundleData);
-
-                    bnHomeHtml.innerText = `${(bnData[0].homepageHtmlPayloadSize / 1024).toFixed(1)}kb`;
-                    bnHomeCss.innerText = `${(bnData[0].homepageCssBundleSize / 1024).toFixed(1)}kb`;
-                    bnHomeJs.innerText = `${(bnData[0].homepageJsBundleSize / 1024).toFixed(1)}kb`;
-                    bnCoreCss.innerText = `${(bnData[0].coreCssBundleSize / 1024).toFixed(1)}kb`;
-                    bnCoreJs.innerText = `${(bnData[0].coreJsBundleSize / 1024).toFixed(1)}kb`;
-                    bnDate.innerText = `updated: ${bnData[0].friendlyDate}`;
-
-                    google.charts.setOnLoadCallback(drawHomeHtml);
-                    google.charts.setOnLoadCallback(drawHomeCss);
-                    google.charts.setOnLoadCallback(drawHomeJs);
-                    google.charts.setOnLoadCallback(drawCoreCss);
-                    google.charts.setOnLoadCallback(drawCoreJs);
-                } else {
-                    bundleData.innerHTML = 'An error occurred during your request: ' + bnRequest.status + ' ' + bnRequest.statusText;
-                }
-            }
-        }
-
-        bnRequest.open('get', `https://azurecom-stats.azurewebsites.net/api/bundles?v=${+new Date()}`);
-        bnRequest.send();
-    </script>
-
-    <script>
-        google.charts.load('current', { packages: ['corechart', 'line'] });
-
-            function drawSitemap() {
-
+            google.charts.load('current', { packages: ['corechart', 'line'] });
+            google.charts.setOnLoadCallback(function () {
                 var data = new google.visualization.DataTable();
                 data.addColumn('datetime', 'Date');
-                data.addColumn('number', 'Blog URLs');
-                data.addColumn('number', 'Resource URLs');
-                data.addColumn('number', 'Sample URLs');
-                data.addColumn('number', 'Template URLs');
-                data.addColumn('number', 'Update URLs');
-                data.addColumn('number', 'Video URLs');
-
-                data.addRows(smData.map(element => [new Date(element.timestamp), element.blogUrlCount, element.resourcesUrlCount, element.samplesUrlCount, element.templatesUrlCount, element.updatesUrlCount, element.videoUrlCount]));
+                data.addColumn('number', column);
+                data.addRows(rows);
 
                 var options = {
                     hAxis: {
@@ -352,140 +238,91 @@
                     }
                 };
 
-                var chart = new google.visualization.LineChart(document.getElementById('sm-chart'));
-
+                var chart = new google.visualization.LineChart(document.getElementById(`${id}-chart`));
                 chart.draw(data, options);
+            });
+        }
+    </script>
+
+    <script>
+        function addSizeChart(id, data, column, rows) {
+            document.getElementById(id).innerText = `${(data / 1024).toFixed(1)}kb`;
+
+            google.charts.load('current', { packages: ['corechart', 'line'] });
+            google.charts.setOnLoadCallback(function () {
+                var data = new google.visualization.DataTable();
+                data.addColumn('datetime', 'Date');
+                data.addColumn('number', column);
+                data.addRows(rows);
+
+                var options = {
+                    hAxis: {
+                        title: 'Date'
+                    },
+                    vAxis: {
+                        title: 'Size (kb)'
+                    }
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById(`${id}-chart`));
+                chart.draw(data, options);
+            });
+        }
+    </script>
+
+    <script>
+        var smRrequest = new XMLHttpRequest();
+        smRrequest.onreadystatechange = function () {
+            if (smRrequest.readyState === 4) {
+                if (smRrequest.status === 200) {
+                    let data = JSON.parse(smRrequest.responseText);
+
+                    addUrlsChart('sm-unique-urls', data[0].uniqueUrlCount, 'Unique URLs', data.map(el => [new Date(el.timestamp), el.uniqueUrlCount]));
+                    addUrlsChart('sm-blog-urls', data[0].blogUrlCount, 'Blog URLs', data.map(el => [new Date(el.timestamp), el.blogUrlCount]));
+                    addUrlsChart('sm-event-urls', data[0].eventsUrlCount, 'Event URLs', data.map(el => [new Date(el.timestamp), el.eventsUrlCount]));
+                    addUrlsChart('sm-knowledge-center-urls', data[0].knowledgeCentersUrlCount, 'Knowledge Center URLs', data.map(el => [new Date(el.timestamp), el.knowledgeCentersUrlCount]));
+                    addUrlsChart('sm-podcast-urls', data[0].podcastsUrlCount, 'Podcast URLs', data.map(el => [new Date(el.timestamp), el.podcastsUrlCount]));
+                    addUrlsChart('sm-pricing-details-urls', data[0].pricingDetailsUrlCount, 'Pricing Details URLs', data.map(el => [new Date(el.timestamp), el.pricingDetailsUrlCount]));
+                    addUrlsChart('sm-resource-urls', data[0].resourcesUrlCount, 'Resource URLs', data.map(el => [new Date(el.timestamp), el.resourcesUrlCount]));
+                    addUrlsChart('sm-service-urls', data[0].servicesUrlCount, 'Service URLs', data.map(el => [new Date(el.timestamp), el.servicesUrlCount]));
+                    addUrlsChart('sm-solution-architecture-urls', data[0].solutionArchitecturesUrlCount, 'Solution Architecture URLs', data.map(el => [new Date(el.timestamp), el.solutionArchitecturesUrlCount]));
+                    addUrlsChart('sm-template-urls', data[0].templatesUrlCount, 'Template URLs', data.map(el => [new Date(el.timestamp), el.templatesUrlCount]));
+                    addUrlsChart('sm-update-urls', data[0].updatesUrlCount, 'Update URLs', data.map(el => [new Date(el.timestamp), el.updatesUrlCount]));
+                    addUrlsChart('sm-video-urls', data[0].videoUrlCount, 'Video URLs', data.map(el => [new Date(el.timestamp), el.videoUrlCount]));
+
+                    document.getElementById('sm-date').innerText = `updated: ${data[0].friendlyDate}`;
+                } else {
+                    document.getElementById('sm-date').innerHTML = 'An error occurred during your request: ' + smRrequest.status + ' ' + smRrequest.statusText;
+                }
             }
+        }
+
+        smRrequest.open('get', `https://azurecom-stats.azurewebsites.net/api/sitemap?v=${+new Date()}`);
+        smRrequest.send();
     </script>
 
     <script>
-        google.charts.load('current', { packages: ['corechart', 'line'] });
+        var bnRequest = new XMLHttpRequest();
+        bnRequest.onreadystatechange = function () {
+            if (bnRequest.readyState === 4) {
+                if (bnRequest.status === 200) {
+                    let data = JSON.parse(bnRequest.responseText);
 
-        function drawHomeHtml() {
+                    addSizeChart('bn-home-html', data[0].homepageHtmlPayloadSize, 'Home HTML', data.map(el => [new Date(el.timestamp), el.homepageHtmlPayloadSize / 1024]));
+                    addSizeChart('bn-home-css', data[0].homepageCssBundleSize, 'Home CSS', data.map(el => [new Date(el.timestamp), el.homepageCssBundleSize / 1024]));
+                    addSizeChart('bn-home-js', data[0].homepageJsBundleSize, 'Home JS', data.map(el => [new Date(el.timestamp), el.homepageJsBundleSize / 1024]));
+                    addSizeChart('bn-core-css', data[0].coreCssBundleSize, 'Core CSS', data.map(el => [new Date(el.timestamp), el.coreCssBundleSize / 1024]));
+                    addSizeChart('bn-core-js', data[0].coreJsBundleSize, 'Core JS', data.map(el => [new Date(el.timestamp), el.coreJsBundleSize / 1024]));
 
-            var data = new google.visualization.DataTable();
-            data.addColumn('datetime', 'Date');
-            data.addColumn('number', 'Home HTML');
-
-            data.addRows(bnData.map(element => [new Date(element.timestamp), element.homepageHtmlPayloadSize / 1024]));
-
-            var options = {
-                hAxis: {
-                    title: 'Date'
-                },
-                vAxis: {
-                    title: 'Size (kb)'
+                    document.getElementById('bn-date').innerText = `updated: ${data[0].friendlyDate}`;
+                } else {
+                    document.getElementById('bn-date').innerHTML = 'An error occurred during your request: ' + bnRequest.status + ' ' + bnRequest.statusText;
                 }
-            };
-
-            var chart = new google.visualization.LineChart(document.getElementById('bn-chart-homehtml'));
-
-            chart.draw(data, options);
+            }
         }
-    </script>
 
-    <script>
-        google.charts.load('current', { packages: ['corechart', 'line'] });
-
-        function drawHomeCss() {
-
-            var data = new google.visualization.DataTable();
-            data.addColumn('datetime', 'Date');
-            data.addColumn('number', 'Home CSS');
-
-            data.addRows(bnData.map(element => [new Date(element.timestamp), element.homepageCssBundleSize / 1024]));
-
-            var options = {
-                hAxis: {
-                    title: 'Date'
-                },
-                vAxis: {
-                    title: 'Size (kb)'
-                }
-            };
-
-            var chart = new google.visualization.LineChart(document.getElementById('bn-chart-homecss'));
-
-            chart.draw(data, options);
-        }
-    </script>
-
-    <script>
-        google.charts.load('current', { packages: ['corechart', 'line'] });
-
-        function drawHomeJs() {
-
-            var data = new google.visualization.DataTable();
-            data.addColumn('datetime', 'Date');
-            data.addColumn('number', 'Home JS');
-
-            data.addRows(bnData.map(element => [new Date(element.timestamp), element.homepageJsBundleSize / 1024]));
-
-            var options = {
-                hAxis: {
-                    title: 'Date'
-                },
-                vAxis: {
-                    title: 'Size (kb)'
-                }
-            };
-
-            var chart = new google.visualization.LineChart(document.getElementById('bn-chart-homejs'));
-
-            chart.draw(data, options);
-        }
-    </script>
-
-    <script>
-        google.charts.load('current', { packages: ['corechart', 'line'] });
-
-        function drawCoreCss() {
-
-            var data = new google.visualization.DataTable();
-            data.addColumn('datetime', 'Date');
-            data.addColumn('number', 'Core CSS');
-
-            data.addRows(bnData.map(element => [new Date(element.timestamp), element.coreCssBundleSize / 1024]));
-
-            var options = {
-                hAxis: {
-                    title: 'Date'
-                },
-                vAxis: {
-                    title: 'Size (kb)'
-                }
-            };
-
-            var chart = new google.visualization.LineChart(document.getElementById('bn-chart-corecss'));
-
-            chart.draw(data, options);
-        }
-    </script>
-
-    <script>
-        google.charts.load('current', { packages: ['corechart', 'line'] });
-
-        function drawCoreJs() {
-
-            var data = new google.visualization.DataTable();
-            data.addColumn('datetime', 'Date');
-            data.addColumn('number', 'Core JS');
-
-            data.addRows(bnData.map(element => [new Date(element.timestamp), element.coreJsBundleSize / 1024]));
-
-            var options = {
-                hAxis: {
-                    title: 'Date'
-                },
-                vAxis: {
-                    title: 'Size (kb)'
-                }
-            };
-
-            var chart = new google.visualization.LineChart(document.getElementById('bn-chart-corejs'));
-
-            chart.draw(data, options);
-        }
+        bnRequest.open('get', `https://azurecom-stats.azurewebsites.net/api/bundles?v=${+new Date()}`);
+        bnRequest.send();
     </script>
 </body>
 
