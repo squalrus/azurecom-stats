@@ -68,14 +68,21 @@ namespace AzurecomStatsFunctions
             {
                 PartitionKey = "Sitemap",
                 RowKey = Guid.NewGuid().ToString(),
+
                 UrlCount = urls.Count(),
                 UniqueUrlCount = distinctUrls.Count(),
+
                 BlogUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/blog\/(.*?)\/")).Count(),
+                EventsUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/community\/events\/(.*?)\/")).Count(),
+                KnowledgeCentersUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/resources\/knowledge-center\/(.*?)\/")).Count(),
+                PodcastsUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/industries\/podcast\/(.*?)\/")).Count(),
+                PricingDetailsUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/pricing\/details\/(.*?)\/")).Count(),
                 ResourcesUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/resources\/(.*?)([a-z]{2}-[a-z]{2})\/")).Count(),
-                SamplesUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/resources\/samples\/(.*?)\/")).Count(),
+                ServicesUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/services\/(.*?)\/")).Count(),
+                SolutionArchitecturesUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/solutions\/architecture\/(.*?)\/")).Count(),
                 TemplatesUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/resources\/templates\/(.*?)\/")).Count(),
                 UpdatesUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/updates\/(.*?)\/")).Count(),
-                VideoUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/resources\/videos\/(.*?)\/")).Count()
+                VideoUrlCount = distinctUrls.Where(x => Regex.IsMatch(x, @"https:\/\/azure\.microsoft\.com\/en-us\/resources\/videos\/(.*?)\/")).Count(),
             };
         }
     }
