@@ -1,12 +1,13 @@
+using AzurecomStatsFunctions.Shared;
+using Microsoft.Azure.WebJobs;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Extensions.Logging;
-using AzurecomStatsFunctions.Shared;
 
 namespace AzurecomStatsFunctions
 {
@@ -16,6 +17,7 @@ namespace AzurecomStatsFunctions
         [return: Table("sitemap")]
         public static SitemapData Run(
             [TimerTrigger("0 0 */1 * * *")]TimerInfo myTimer,
+            [Blob("latest/full.txt", FileAccess.Write)] Stream sitemapBlob,
             ILogger log)
         {
             var pageNum = 1;
@@ -63,6 +65,7 @@ namespace AzurecomStatsFunctions
             log.LogInformation($"Writing to Storage.");
 
             var distinctUrls = urls.Distinct();
+            sitemapBlob.Write(Encoding.Default.GetBytes(string.Join('\n', distinctUrls.OrderBy(x => x).ToList())));
 
             return new SitemapData
             {
