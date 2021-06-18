@@ -21,7 +21,7 @@ steps:
 - task: AzureFileCopy@3
   inputs:
     sourcePath: '$(Build.SourcesDirectory)/Site'
-    azureSubscription: conn
+    azureSubscription: azurecom-stats
     destination: azureBlob
     storage: azurecomstats
     containerName: "dev"
