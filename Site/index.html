@@ -122,14 +122,6 @@
                         <span>blog URLs</span>
                     </li>
                     <li>
-                        <span id="sm-event-urls" class="number"><span class="loader"></span></span>
-                        <span>event URLs</span>
-                    </li>
-                    <li>
-                        <span id="sm-knowledge-center-urls" class="number"><span class="loader"></span></span>
-                        <span>knowledge center URLs</span>
-                    </li>
-                    <li>
                         <span id="sm-podcast-urls" class="number"><span class="loader"></span></span>
                         <span>podcast URLs</span>
                     </li>
@@ -137,19 +129,15 @@
                         <span id="sm-pricing-details-urls" class="number"><span class="loader"></span></span>
                         <span>pricing details URLs</span>
                     </li>
-                </ul>
-                <ul>
                     <li>
                         <span id="sm-resource-urls" class="number"><span class="loader"></span></span>
                         <span>resource URLs</span>
                     </li>
+                </ul>
+                <ul>
                     <li>
                         <span id="sm-service-urls" class="number"><span class="loader"></span></span>
                         <span>service URLs</span>
-                    </li>
-                    <li>
-                        <span id="sm-solution-architecture-urls" class="number"><span class="loader"></span></span>
-                        <span>solution architecture URLs</span>
                     </li>
                     <li>
                         <span id="sm-template-urls" class="number"><span class="loader"></span></span>
@@ -159,26 +147,18 @@
                         <span id="sm-update-urls" class="number"><span class="loader"></span></span>
                         <span>update URLs</span>
                     </li>
-                    <li>
-                        <span id="sm-video-urls" class="number"><span class="loader"></span></span>
-                        <span>video URLs</span>
-                    </li>
                 </ul>
                 <span id="sm-date" class="date"></span>
             </div>
 
             <div id="sm-unique-urls-chart"></div>
             <div id="sm-blog-urls-chart"></div>
-            <div id="sm-event-urls-chart"></div>
-            <div id="sm-knowledge-center-urls-chart"></div>
             <div id="sm-podcast-urls-chart"></div>
             <div id="sm-pricing-details-urls-chart"></div>
             <div id="sm-resource-urls-chart"></div>
             <div id="sm-service-urls-chart"></div>
-            <div id="sm-solution-architecture-urls-chart"></div>
             <div id="sm-template-urls-chart"></div>
             <div id="sm-update-urls-chart"></div>
-            <div id="sm-video-urls-chart"></div>
 
             <h2>bundles</h2>
 
@@ -279,17 +259,13 @@
 
                     addUrlsChart('sm-unique-urls', data[0].uniqueUrlCount, 'Unique URLs', data.map(el => [new Date(el.timestamp), el.uniqueUrlCount]));
                     addUrlsChart('sm-blog-urls', data[0].blogUrlCount, 'Blog URLs', data.map(el => [new Date(el.timestamp), el.blogUrlCount]));
-                    addUrlsChart('sm-event-urls', data[0].eventsUrlCount, 'Event URLs', data.map(el => [new Date(el.timestamp), el.eventsUrlCount]));
-                    addUrlsChart('sm-knowledge-center-urls', data[0].knowledgeCentersUrlCount, 'Knowledge Center URLs', data.map(el => [new Date(el.timestamp), el.knowledgeCentersUrlCount]));
                     addUrlsChart('sm-podcast-urls', data[0].podcastsUrlCount, 'Podcast URLs', data.map(el => [new Date(el.timestamp), el.podcastsUrlCount]));
                     addUrlsChart('sm-pricing-details-urls', data[0].pricingDetailsUrlCount, 'Pricing Details URLs', data.map(el => [new Date(el.timestamp), el.pricingDetailsUrlCount]));
                     addUrlsChart('sm-resource-urls', data[0].resourcesUrlCount, 'Resource URLs', data.map(el => [new Date(el.timestamp), el.resourcesUrlCount]));
                     addUrlsChart('sm-service-urls', data[0].servicesUrlCount, 'Service URLs', data.map(el => [new Date(el.timestamp), el.servicesUrlCount]));
-                    addUrlsChart('sm-solution-architecture-urls', data[0].solutionArchitecturesUrlCount, 'Solution Architecture URLs', data.map(el => [new Date(el.timestamp), el.solutionArchitecturesUrlCount]));
                     addUrlsChart('sm-template-urls', data[0].templatesUrlCount, 'Template URLs', data.map(el => [new Date(el.timestamp), el.templatesUrlCount]));
                     addUrlsChart('sm-update-urls', data[0].updatesUrlCount, 'Update URLs', data.map(el => [new Date(el.timestamp), el.updatesUrlCount]));
-                    addUrlsChart('sm-video-urls', data[0].videoUrlCount, 'Video URLs', data.map(el => [new Date(el.timestamp), el.videoUrlCount]));
-
+/api/sitemap
                     document.getElementById('sm-date').innerText = `updated: ${data[0].friendlyDate}`;
                 } else {
                     document.getElementById('sm-date').innerHTML = 'An error occurred during your request: ' + smRrequest.status + ' ' + smRrequest.statusText;
