@@ -265,7 +265,7 @@
                     addUrlsChart('sm-service-urls', data[0].servicesUrlCount, 'Service URLs', data.map(el => [new Date(el.timestamp), el.servicesUrlCount]));
                     addUrlsChart('sm-template-urls', data[0].templatesUrlCount, 'Template URLs', data.map(el => [new Date(el.timestamp), el.templatesUrlCount]));
                     addUrlsChart('sm-update-urls', data[0].updatesUrlCount, 'Update URLs', data.map(el => [new Date(el.timestamp), el.updatesUrlCount]));
-/api/sitemap
+
                     document.getElementById('sm-date').innerText = `updated: ${data[0].friendlyDate}`;
                 } else {
                     document.getElementById('sm-date').innerHTML = 'An error occurred during your request: ' + smRrequest.status + ' ' + smRrequest.statusText;
